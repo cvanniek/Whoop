@@ -3,6 +3,8 @@
 
 ## **Project Overview**
 
+As a masters of data science student and post-collegiate athlete, balancing training, recovery, and performance can feel like juggling three priorities at once. 
+
 The primary goal of this project is to:
 
 1. **Identify patterns** in my personal recovery, sleep, and workout metrics.
