@@ -1,0 +1,137 @@
+# WHOOP Data Cluster Analysis Report
+
+## **Overview**
+
+This report presents a clustering analysis of WHOOP data collected on **sleep, recovery, and workouts**. The objective of this analysis was to identify patterns in physiological metrics that could provide insights into **optimizing training schedules and recovery strategies**.
+
+---
+
+## **Project Goals**
+
+1. **Identify patterns** in recovery, sleep, and strain metrics.
+2. Understand the impact of **strain and recovery** on daily performance.
+3. Use clustering to inform **better training and rest day planning**.
+
+---
+
+## **Data Sources**
+
+The analysis is based on three WHOOP datasets:
+
+- **Sleep Data**: Metrics include REM sleep, deep sleep (SWS), sleep performance, and sleep debt.
+- **Physiological Data**: Key metrics include recovery score, day strain, resting heart rate, and heart rate variability (HRV).
+- **Workout Data**: Captures data on calories burned, time in various heart rate zones, and GPS-based activity.
+
+---
+
+## **Methodology**
+
+### **1. Data Preprocessing**
+- The three datasets were **merged** on `Cycle start time` to align daily records.
+- **Missing values** were handled by dropping incomplete rows to ensure data quality.
+- The features were standardized using **`StandardScaler`** for effective clustering.
+
+### **2. Clustering with K-Means**
+- **K-Means clustering** was used to group similar days based on metrics like sleep performance, day strain, and heart rate zones.
+- The **optimal number of clusters** was determined using the Elbow Method, resulting in **three clusters**.
+
+### **3. Summary Statistics and Visualization**
+- Summary statistics were calculated for each cluster to identify patterns.
+- **Scatter plots** were used to visualize the relationship between **recovery score** and **day strain** across clusters.
+
+---
+
+## **Results**
+
+### **Cluster 0: Balanced Days (Optimal Recovery)**
+
+- **Key Characteristics**:
+  - **Sleep Performance**: 67.66%
+  - **Recovery Score**: 66.18%
+  - **Day Strain**: 15.61
+  - **REM Sleep**: 85.78 minutes
+  - **Average HR**: 103 bpm
+  - **Calories Burned**: 392 calories
+
+- **Interpretation**:
+  - This cluster represents **recovery-focused days** with optimal REM and deep sleep, moderate strain, and lower average heart rate. These days are essential for **restoration and recovery**.
+
+---
+
+### **Cluster 1: High Activity Days**
+
+- **Key Characteristics**:
+  - **Sleep Performance**: 66.18%
+  - **Recovery Score**: 66.18%
+  - **Day Strain**: 15.77
+  - **REM Sleep**: 80.28 minutes
+  - **Average HR**: 119 bpm
+  - **Higher time in HR Zones 2 and 3**
+
+- **Interpretation**:
+  - These days are characterized by **intense workouts**, indicated by higher heart rate and strain. They play a critical role in building endurance and strength but require **adequate recovery** afterward.
+
+---
+
+### **Cluster 2: High Stress Days (Low Recovery)**
+
+- **Key Characteristics**:
+  - **Sleep Performance**: 61.86%
+  - **Recovery Score**: 57.86%
+  - **Day Strain**: 15.50
+  - **REM Sleep**: 76.43 minutes
+  - **Average HR**: 145 bpm
+
+- **Interpretation**:
+  - This cluster indicates **stressful or overreaching days** with poor sleep and high heart rate, signaling **low recovery**. These days suggest the need for rest or lower-intensity activity to prevent potential burnout.
+
+---
+
+## **Visualizations**
+
+- **Scatter Plot**: Recovery Score vs. Day Strain, colored by cluster.
+  - Shows distinct groupings that highlight differences in recovery and strain patterns.
+- **Box Plots**: Comparison of REM sleep, calories burned, and strain across clusters.
+  - Provides insights into the variation of each metric within and across clusters.
+
+---
+
+## **Key Insights and Actionable Recommendations**
+
+1. **Balanced Days (Cluster 0)** are crucial for maintaining long-term performance. Plan to include more of these days to sustain optimal recovery.
+2. **High Activity Days (Cluster 1)** should be strategically placed in the schedule to maximize fitness gains without overloading the system.
+3. **High Stress Days (Cluster 2)** indicate insufficient recovery. Monitor these days closely and consider adding rest or light activity following these days.
+
+---
+
+## **Next Steps**
+
+1. **Real-Time Dashboard**:
+   - Build an interactive dashboard to track metrics in real-time, making it easier to plan recovery days around high-strain days.
+
+2. **Performance Prediction**:
+   - Develop a machine learning model to predict performance based on physiological and sleep metrics, optimizing preparation for competitions.
+
+3. **Longitudinal Analysis**:
+   - Explore trends in physiological metrics over time, identifying seasonal or cyclical patterns in recovery and performance.
+
+---
+
+## **Conclusion**
+
+This clustering analysis provided valuable insights into different types of training and recovery days, allowing for a more personalized approach to workout scheduling. By balancing **high activity and recovery-focused days**, this project aims to prevent burnout, optimize performance, and promote long-term well-being.
+
+---
+
+## **Technical Details**
+
+- **Python Libraries**: pandas, numpy, scikit-learn, seaborn, matplotlib
+- **Clustering Algorithm**: K-Means
+- **Visualization**: Jupyter Notebook and Matplotlib/Seaborn
+
+---
+
+## **Disclaimer**
+
+This report is based on personal WHOOP data and is intended for **personal analysis only**. Results may vary for other individuals, and recommendations should not be taken as professional training advice.
+
