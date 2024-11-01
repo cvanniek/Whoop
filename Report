@@ -1,137 +1,84 @@
-# WHOOP Data Cluster Analysis Report
+# WHOOP Data Analysis: Health and Performance Optimization
 
-## **Overview**
-
-This report presents a clustering analysis of WHOOP data collected on **sleep, recovery, and workouts**. The objective of this analysis was to identify patterns in physiological metrics that could provide insights into **optimizing training schedules and recovery strategies**.
-
----
-
-## **Project Goals**
-
-1. **Identify patterns** in recovery, sleep, and strain metrics.
-2. Understand the impact of **strain and recovery** on daily performance.
-3. Use clustering to inform **better training and rest day planning**.
+## Project Overview
+This project leverages physiological data from WHOOP wearables to analyze and optimize health and performance outcomes. By examining the impact of factors like sleep, strain, heart rate variability, and temperature on recovery and sleep quality, this analysis provides actionable insights for improving overall wellness and athletic performance. Advanced data science methods, including A/B testing, feature engineering, and machine learning, were used to understand and predict recovery and performance outcomes.
 
 ---
 
-## **Data Sources**
-
-The analysis is based on three WHOOP datasets:
-
-- **Sleep Data**: Metrics include REM sleep, deep sleep (SWS), sleep performance, and sleep debt.
-- **Physiological Data**: Key metrics include recovery score, day strain, resting heart rate, and heart rate variability (HRV).
-- **Workout Data**: Captures data on calories burned, time in various heart rate zones, and GPS-based activity.
+## Project Objectives
+1. **Identify Patterns and Correlations**: Examine the relationship between sleep, strain, temperature, and recovery to identify factors that impact athletic performance and health.
+2. **Perform Hypothesis Testing**: Conduct A/B tests to determine whether variables like strain level and sleep duration significantly impact recovery and sleep performance.
+3. **Build Predictive Models**: Train machine learning models to predict recovery scores and sleep quality based on physiological and activity data.
+4. **Communicate Findings**: Use interactive visualizations and statistical summaries to make findings accessible and actionable for various stakeholders.
 
 ---
 
-## **Methodology**
-
-### **1. Data Preprocessing**
-- The three datasets were **merged** on `Cycle start time` to align daily records.
-- **Missing values** were handled by dropping incomplete rows to ensure data quality.
-- The features were standardized using **`StandardScaler`** for effective clustering.
-
-### **2. Clustering with K-Means**
-- **K-Means clustering** was used to group similar days based on metrics like sleep performance, day strain, and heart rate zones.
-- The **optimal number of clusters** was determined using the Elbow Method, resulting in **three clusters**.
-
-### **3. Summary Statistics and Visualization**
-- Summary statistics were calculated for each cluster to identify patterns.
-- **Scatter plots** were used to visualize the relationship between **recovery score** and **day strain** across clusters.
+## Data Processing
+1. **Data Loading and Cleaning**: Data from WHOOP wearables was loaded, and missing values were addressed to ensure data consistency.
+2. **Date-Time Formatting**: Columns like `"Cycle start time"` were formatted into datetime objects, enabling month-based segmentation and time-based analysis.
+3. **Segmentation**: Data was segmented by month and strain levels to facilitate month-by-month comparison and A/B testing.
 
 ---
 
-## **Results**
-
-### **Cluster 0: Balanced Days (Optimal Recovery)**
-
-- **Key Characteristics**:
-  - **Sleep Performance**: 67.66%
-  - **Recovery Score**: 66.18%
-  - **Day Strain**: 15.61
-  - **REM Sleep**: 85.78 minutes
-  - **Average HR**: 103 bpm
-  - **Calories Burned**: 392 calories
-
-- **Interpretation**:
-  - This cluster represents **recovery-focused days** with optimal REM and deep sleep, moderate strain, and lower average heart rate. These days are essential for **restoration and recovery**.
+## Feature Engineering
+1. **Interaction and Polynomial Features**: Created new features by introducing interaction terms (e.g., `Strain * Sleep Duration`) and polynomial terms (e.g., `Sleep Duration^2`) to capture nonlinear relationships.
+2. **Feature Scaling**: Standardized features to prepare data for machine learning models, ensuring consistency and improving model performance.
+3. **New Metrics**: Engineered additional metrics such as “sleep consistency” and calculated average weekly metrics to capture long-term trends in physiological data.
 
 ---
 
-### **Cluster 1: High Activity Days**
+## Exploratory Data Analysis (EDA)
 
-- **Key Characteristics**:
-  - **Sleep Performance**: 66.18%
-  - **Recovery Score**: 66.18%
-  - **Day Strain**: 15.77
-  - **REM Sleep**: 80.28 minutes
-  - **Average HR**: 119 bpm
-  - **Higher time in HR Zones 2 and 3**
-
-- **Interpretation**:
-  - These days are characterized by **intense workouts**, indicated by higher heart rate and strain. They play a critical role in building endurance and strength but require **adequate recovery** afterward.
+### Key Visualizations
+- **Distribution of Day Strain**: Visualized using histograms to identify normal and high strain thresholds.
+- **Monthly Trends**: Explored month-by-month trends in Recovery Score, Day Strain, and Sleep Performance.
+- **Correlation Heatmap**: Examined correlations among variables like recovery, sleep duration, strain, and heart rate variability.
 
 ---
 
-### **Cluster 2: High Stress Days (Low Recovery)**
+## A/B Testing
 
-- **Key Characteristics**:
-  - **Sleep Performance**: 61.86%
-  - **Recovery Score**: 57.86%
-  - **Day Strain**: 15.50
-  - **REM Sleep**: 76.43 minutes
-  - **Average HR**: 145 bpm
+### Hypotheses Tested
+1. **Impact of Strain on Recovery Score**:
+   - **Group A**: Low strain days
+   - **Group B**: High strain days
+   - **Result**: No statistically significant difference in recovery scores between low and high strain days (p > 0.05).
 
-- **Interpretation**:
-  - This cluster indicates **stressful or overreaching days** with poor sleep and high heart rate, signaling **low recovery**. These days suggest the need for rest or lower-intensity activity to prevent potential burnout.
+2. **Effect of Sleep Duration on Recovery**:
+   - **Group A**: Short sleep duration (below median)
+   - **Group B**: Long sleep duration (above median)
+   - **Result**: Significant difference in recovery scores between short and long sleep durations, with higher recovery associated with longer sleep (p < 0.05).
 
----
+3. **Heart Rate Variability and Sleep Quality**:
+   - **Group A**: Low HRV days
+   - **Group B**: High HRV days
+   - **Result**: Statistically significant difference in sleep performance, with higher HRV days associated with better sleep quality (p < 0.05).
 
-## **Visualizations**
-
-- **Scatter Plot**: Recovery Score vs. Day Strain, colored by cluster.
-  - Shows distinct groupings that highlight differences in recovery and strain patterns.
-- **Box Plots**: Comparison of REM sleep, calories burned, and strain across clusters.
-  - Provides insights into the variation of each metric within and across clusters.
-
----
-
-## **Key Insights and Actionable Recommendations**
-
-1. **Balanced Days (Cluster 0)** are crucial for maintaining long-term performance. Plan to include more of these days to sustain optimal recovery.
-2. **High Activity Days (Cluster 1)** should be strategically placed in the schedule to maximize fitness gains without overloading the system.
-3. **High Stress Days (Cluster 2)** indicate insufficient recovery. Monitor these days closely and consider adding rest or light activity following these days.
+### Statistical Methods
+- **T-tests** and **Mann-Whitney U tests** were used to assess differences between groups.
+- **Bonferroni Correction** was applied for multiple comparisons to maintain significance level.
 
 ---
 
-## **Next Steps**
+## Machine Learning Models
 
-1. **Real-Time Dashboard**:
-   - Build an interactive dashboard to track metrics in real-time, making it easier to plan recovery days around high-strain days.
+### Models Developed
+1. **Random Forest Regressor**: Used to predict recovery scores. After tuning hyperparameters, it achieved an R-squared of approximately 0.27.
+2. **Gradient Boosting Regressor**: Applied to predict sleep performance. The model performed with an R-squared of approximately 0.19.
 
-2. **Performance Prediction**:
-   - Develop a machine learning model to predict performance based on physiological and sleep metrics, optimizing preparation for competitions.
-
-3. **Longitudinal Analysis**:
-   - Explore trends in physiological metrics over time, identifying seasonal or cyclical patterns in recovery and performance.
-
----
-
-## **Conclusion**
-
-This clustering analysis provided valuable insights into different types of training and recovery days, allowing for a more personalized approach to workout scheduling. By balancing **high activity and recovery-focused days**, this project aims to prevent burnout, optimize performance, and promote long-term well-being.
+### Model Evaluation Metrics
+- **R-squared**: Measures the proportion of variance explained by the model.
+- **Mean Absolute Error (MAE)** and **Root Mean Squared Error (RMSE)**: Used to evaluate model accuracy and error.
 
 ---
 
-## **Technical Details**
+## Results and Insights
 
-- **Python Libraries**: pandas, numpy, scikit-learn, seaborn, matplotlib
-- **Clustering Algorithm**: K-Means
-- **Visualization**: Jupyter Notebook and Matplotlib/Seaborn
+1. **Sleep Duration and Recovery**: Longer sleep duration has a positive impact on recovery, suggesting that athletes may benefit from increased sleep on high strain days.
+2. **Strain Levels and Recovery**: No significant difference was observed in recovery scores between low and high strain days, but strain had a notable impact on sleep performance.
+3. **Heart Rate Variability**: Higher HRV days correlate with better sleep quality and recovery scores, supporting HRV as a valuable metric for monitoring physiological readiness.
+4. **Temperature and Recovery**: Higher body temperature was slightly correlated with lower recovery, indicating potential stress or fatigue.
 
 ---
 
-## **Disclaimer**
-
-This report is based on personal WHOOP data and is intended for **personal analysis only**. Results may vary for other individuals, and recommendations should not be taken as professional training advice.
 
